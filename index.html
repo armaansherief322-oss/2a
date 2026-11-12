@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Food Express - Food Delivery</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            background-color: #f3f5f7;
+            color: #263238;
+        }
+
+        /* Header */
+        header {
+            background-color: #1f2937;
+            color: white;
+            text-align: center;
+            padding: 20px;
+            border-bottom: 4px solid #d9822b;
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 30px;
+        }
+
+        header p {
+            color: #e5e7eb;
+            margin-bottom: 0;
+        }
+
+        /* Restaurant Section */
+        .restaurant {
+            background-color: white;
+            margin: 20px auto;
+            padding: 18px;
+            text-align: center;
+            border: 2px solid #d1d5db;
+            border-radius: 10px;
+            max-width: 900px;
+            width: calc(100% - 40px);
+            box-shadow: 0 2px 8px #00000010;
+        }
+
+        .restaurant img {
+            width: 180px;
+            height: 110px;
+            object-fit: cover;
+            border-radius: 8px;
+            border: 1px solid #d1d5db;
+        }
+
+        .restaurant h2 {
+            color: #1f2937;
+        }
+
+        /* Menu Heading */
+        .menu-heading {
+            text-align: center;
+            color: #1f2937;
+            margin: 25px 0 18px;
+        }
+
+        /* Food Menu */
+        .menu {
+            display: flex;
+            justify-content: center;
+            gap: 18px;
+            flex-wrap: wrap;
+            padding: 0 15px;
+        }
+
+        .food {
+            background-color: white;
+            width: 210px;
+            padding: 14px;
+            text-align: center;
+            border: 1.5px solid #d1d5db;
+            border-radius: 10px;
+            box-shadow: 0 2px 8px #00000012;
+            transition: border-color 0.3s, transform 0.3s;
+        }
+
+        .food:hover {
+            border-color: #d9822b;
+            transform: translateY(-3px);
+        }
+
+        .food img {
+            width: 100%;
+            height: 125px;
+            object-fit: cover;
+            border-radius: 8px;
+            border: 1px solid #e5e7eb;
+        }
+
+        .food h3 {
+            color: #1f2937;
+            margin-bottom: 8px;
+        }
+
+        .food p {
+            color: #b66a1f;
+            font-size: 17px;
+            font-weight: bold;
+        }
+
+        /* Buttons */
+        button {
+            background-color: #d9822b;
+            color: white;
+            border: 1px solid #b96b20;
+            padding: 9px 14px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: background-color 0.2s;
+        }
+
+        button:hover {
+            background-color: #ad611c;
+        }
+
+        /* Cart Section */
+        #cart {
+            background-color: white;
+            margin: 20px auto;
+            padding: 18px;
+            border: 2px solid #cbd5e1;
+            border-left: 5px solid #d9822b;
+            border-radius: 10px;
+            max-width: 700px;
+            width: calc(100% - 40px);
+            box-shadow: 0 2px 8px #00000010;
+        }
+
+        #cart h2 {
+            margin-top: 0;
+            color: #1f2937;
+        }
+
+        #cartItems {
+            line-height: 1.8;
+            color: #4b5563;
+        }
+
+        #total {
+            color: #b66a1f;
+        }
+
+        /* Compact Payment Section */
+        #payment {
+            background-color: white;
+            max-width: 480px;
+            width: calc(100% - 40px);
+            margin: 20px auto;
+            padding: 16px 20px;
+            border: 2px solid #cbd5e1;
+            border-top: 4px solid #d9822b;
+            border-radius: 10px;
+            box-shadow: 0 3px 10px #00000012;
+        }
+
+        #payment h2 {
+            color: #1f2937;
+            margin-top: 0;
+            margin-bottom: 15px;
+            font-size: 22px;
+        }
+
+        #payment input,
+        #payment select {
+            display: block;
+            width: 100%;
+            padding: 9px 10px;
+            margin: 9px 0;
+            border: 1px solid #9ca3af;
+            border-radius: 5px;
+            font-size: 14px;
+            background-color: #fff;
+        }
+
+        #payment input:focus,
+        #payment select:focus {
+            outline: none;
+            border-color: #d9822b;
+            box-shadow: 0 0 4px #d9822b55;
+        }
+
+        #payment button {
+            width: 100%;
+            margin-top: 8px;
+            padding: 10px;
+            font-size: 15px;
+            font-weight: bold;
+        }
+
+        /* Footer */
+        footer {
+            background-color: #1f2937;
+            color: white;
+            text-align: center;
+            padding: 14px;
+            margin-top: 30px;
+            border-top: 3px solid #d9822b;
+        }
+
+        footer p {
+            margin: 0;
+            font-size: 13px;
+        }
+
+        /* Mobile Responsive */
+        @media (max-width: 480px) {
+            header h1 {
+                font-size: 25px;
+            }
+
+            .food {
+                width: calc(50% - 10px);
+                min-width: 140px;
+            }
+
+            .food img {
+                height: 100px;
+            }
+
+            #payment {
+                padding: 14px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Header -->
+    <header>
+        <h1>🍔 Food Express</h1>
+        <p>Order delicious food online</p>
+    </header>
+
+    <!-- Restaurant -->
+    <div class="restaurant">
+        <img
+            src="https://images.unsplash.com/photo-1513104890138-7c749659a591?w=500"
+            alt="Restaurant Pizza">
+
+        <h2>Food Express Restaurant</h2>
+        <p>⭐ 4.5 | 30 Minutes</p>
+        <p>Pizza, Burger, Dosa and Desserts</p>
+    </div>
+
+    <!-- Menu -->
+    <h2 class="menu-heading">Our Menu</h2>
+
+    <div class="menu">
+
+        <div class="food">
+            <img
+                src="https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?w=500"
+                alt="Pizza">
+            <h3>Pizza</h3>
+            <p>₹250</p>
+            <button onclick="addFood('Pizza', 250)">
+                Add to Cart
+            </button>
+        </div>
+
+        <div class="food">
+            <img
+                src="https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=500"
+                alt="Burger">
+            <h3>Burger</h3>
+            <p>₹150</p>
+            <button onclick="addFood('Burger', 150)">
+                Add to Cart
+            </button>
+        </div>
+
+        <div class="food">
+            <img
+                src="https://images.unsplash.com/photo-1668236543090-82eba5ee5976?w=500"
+                alt="Dosa">
+            <h3>Dosa</h3>
+            <p>₹100</p>
+            <button onclick="addFood('Dosa', 100)">
+                Add to Cart
+            </button>
+        </div>
+
+        <div class="food">
+            <img
+                src="https://images.unsplash.com/photo-1606313564200-e75d5e30476c?w=500"
+                alt="Brownie">
+            <h3>Brownie</h3>
+            <p>₹80</p>
+            <button onclick="addFood('Brownie', 80)">
+                Add to Cart
+            </button>
+        </div>
+
+    </div>
+
+    <!-- Shopping Cart -->
+    <div id="cart">
+        <h2>🛒 My Cart</h2>
+
+        <div id="cartItems">Cart is empty</div>
+
+        <h3>Total: ₹<span id="total">0</span></h3>
+    </div>
+
+    <!-- Payment Section -->
+    <div id="payment">
+        <h2>💳 Payment Details</h2>
+
+        <input
+            type="text"
+            id="name"
+            placeholder="Your Name">
+
+        <input
+            type="text"
+            id="address"
+            placeholder="Delivery Address">
+
+        <input
+            type="tel"
+            id="phone"
+            placeholder="Phone Number">
+
+        <select id="method">
+            <option value="Cash on Delivery">Cash on Delivery</option>
+            <option value="UPI">UPI</option>
+            <option value="Credit Card">Credit Card</option>
+        </select>
+
+        <button onclick="placeOrder()">
+            Place Order
+        </button>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <p>© 2026 Food Express | Fresh Food, Fast Delivery</p>
+    </footer>
+
+    <script>
+        let cart = [];
+        let total = 0;
+
+        // Add food to cart
+        function addFood(name, price) {
+            cart.push({
+                name: name,
+                price: price
+            });
+
+            total += price;
+
+            updateCart();
+        }
+
+        // Update cart display
+        function updateCart() {
+            const cartItems = document.getElementById("cartItems");
+            const totalElement = document.getElementById("total");
+
+            if (cart.length === 0) {
+                cartItems.textContent = "Cart is empty";
+            } else {
+                cartItems.replaceChildren();
+
+                cart.forEach(function(item, index) {
+                    const line = document.createElement("div");
+                    line.textContent =
+                        (index + 1) + ". " + item.name +
+                        " - ₹" + item.price;
+
+                    cartItems.appendChild(line);
+                });
+            }
+
+            totalElement.textContent = total;
+        }
+
+        // Place order
+        function placeOrder() {
+            const name =
+                document.getElementById("name").value.trim();
+
+            const address =
+                document.getElementById("address").value.trim();
+
+            const phone =
+                document.getElementById("phone").value.trim();
+
+            const method =
+                document.getElementById("method").value;
+
+            if (name === "" || address === "" || phone === "") {
+                alert("Please fill all details");
+                return;
+            }
+
+            if (!/^[0-9]{10}$/.test(phone)) {
+                alert("Please enter a valid 10-digit phone number");
+                return;
+            }
+
+            if (cart.length === 0) {
+                alert("Please add food to cart");
+                return;
+            }
+
+            alert(
+                "Order Placed Successfully! 🎉\n\n" +
+                "Name: " + name + "\n" +
+                "Address: " + address + "\n" +
+                "Phone: " + phone + "\n" +
+                "Items: " + cart.map(item => item.name).join(", ") + "\n" +
+                "Total: ₹" + total + "\n" +
+                "Payment: " + method
+            );
+        }
+    </script>
+
+</body>
+</html>
